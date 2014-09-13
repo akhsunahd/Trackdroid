@@ -130,8 +130,10 @@ OnMyLocationButtonClickListener {
                                	
 
             	if (mLocationClient != null && mLocationClient.isConnected()) {
-                   // String msg = "Location = " + mLocationClient.getLastLocation();
-                    latitude=""+mLocationClient.getLastLocation().getLatitude();
+                    String msg = "Location = " + mLocationClient.getLastLocation();
+                    
+            		
+            		latitude=""+mLocationClient.getLastLocation().getLatitude();
                     longitude=""+mLocationClient.getLastLocation().getLongitude();
                   
                    
@@ -157,7 +159,8 @@ OnMyLocationButtonClickListener {
             	//System.out.println("*****11111111111111111111****************************");
             	new LoadComments().execute();
             	//System.out.println("***222222222222222222222***************************");
-           	 Thread timer=new Thread(){
+         /*
+            	Thread timer=new Thread(){
            	        public void run(){
            	        	try{
            	        		sleep(2000);
@@ -177,7 +180,7 @@ OnMyLocationButtonClickListener {
            	        
            	        };
            	        timer.start();
-            	
+            	*/
         
         
             }

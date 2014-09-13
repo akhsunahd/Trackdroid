@@ -80,10 +80,11 @@
         android:id="@+id/custom_info_window_options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <RadioButton
+       <!-- <RadioButton
           android:id="@+id/default_info_window"
           android:checked="true"
           android:text="@string/default_info_window"/>
+           --> 
         <RadioButton
           android:id="@+id/custom_info_contents"
           android:text="@string/custom_info_contents"/>

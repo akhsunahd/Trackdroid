@@ -67,6 +67,7 @@
             android:name="com.example.trackdroid.Register"
             android:label="@string/app_name"  >
         </activity>
+          
          <activity
             android:name="com.example.trackdroid.ShowInMap"
             android:label="@string/app_name"  >
