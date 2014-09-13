@@ -57,7 +57,7 @@ import java.util.Random;
 /**
  * This shows how to place markers on a map.
  */
-public class MarkerDemoActivity extends FragmentActivity
+public class ShowInMap extends FragmentActivity
         implements
         OnMarkerClickListener,
         OnInfoWindowClickListener,
@@ -170,7 +170,7 @@ public class MarkerDemoActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.marker_demo);
+        setContentView(R.layout.show_in_map);
            
          list=new ArrayList<String>();
          username=new ArrayList<String>();

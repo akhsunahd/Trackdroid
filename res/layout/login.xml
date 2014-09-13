@@ -47,14 +47,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-       android:src="@drawable/arrowstars"  />
-
     <TextView
         android:id="@+id/TextView01"
         android:layout_width="wrap_content"
@@ -79,5 +71,14 @@
         android:layout_alignRight="@+id/TextView01"
         android:layout_centerVertical="true"
         android:text="Username" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/login"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView2"
+        android:src="@drawable/arrowstars" />
 
 </RelativeLayout>

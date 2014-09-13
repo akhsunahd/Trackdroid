@@ -23,15 +23,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
  -->
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_layover"
-        android:layout_below="@+id/top_layover"
-        android:background="#fff"
-        android:divider="@android:color/transparent"
-        android:scrollbars="none" />
+
 <!--
     <LinearLayout
         android:id="@+id/bottom_layover"
@@ -69,4 +61,30 @@
    
     </LinearLayout>
    -->
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:background="#fff"
+        android:divider="@android:color/transparent"
+        android:scrollbars="none" >
+    </ListView>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="140dp"
+        android:text="Button" />
+
 </RelativeLayout>
