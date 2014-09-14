@@ -75,10 +75,11 @@ public class ShowMyLocation extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.my_location);
         mMessageView = (TextView) findViewById(R.id.message_text);
-        Members=(Button) findViewById(R.id.show_members);
+      //  Members=(Button) findViewById(R.id.show_members);
         temp= (TextView) findViewById(R.id.display);
+       /*
         Members.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                
@@ -106,7 +107,7 @@ public class ShowMyLocation extends FragmentActivity
                }
            });
         
-        
+        */
         
          
     }
