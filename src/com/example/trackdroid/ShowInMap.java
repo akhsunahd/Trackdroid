@@ -16,8 +16,7 @@
 
 package com.example.trackdroid;
 
-import com.example.trackdroid.SendLocationDataToMap.LoadComments;
-import com.example.trackdroid.SendLocationDataToMap.LocationUpdate;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -91,6 +90,7 @@ public class ShowInMap extends FragmentActivity implements
 	private static final LatLng ADELAIDE = new LatLng(-34.92873, 138.59995);
 	private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
 
+	
 	private static final String TAG_POSTS = "posts";
 
 	private ProgressDialog pDialog;
@@ -98,15 +98,15 @@ public class ShowInMap extends FragmentActivity implements
 	// php read comments script
 	// private GoogleMap mMap;
 	// private Button Members;
-	private Button Members, Members1;
+
 	private LocationClient mLocationClient;
-	private TextView mMessageView;
+	
 	private String latitude;
-	private TextView temp;
+	
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_MESSAGE = "message";
 	private String longitude;
-	// private String id="new";
+	
 	private String username = "";
 	private static final String LOCATION_URL = "http://10.0.3.2/trackdroid/location.php";
 	JSONParser jsonParser = new JSONParser();
@@ -132,41 +132,45 @@ public class ShowInMap extends FragmentActivity implements
 
 	/** Demonstrates customizing the info window and/or its contents. */
 	class CustomInfoWindowAdapter implements InfoWindowAdapter {
-		private final RadioGroup mOptions;
+		//private final RadioGroup mOptions;
 		private int NumOfElements;
 		// public LatLng[] positions;
 		// These a both viewgroups containing an ImageView with id "badge" and
 		// two TextViews with id
 		// "title" and "snippet".
-		private final View mWindow;
-		private final View mContents;
+		//private final View mWindow;
+	//	private final View mContents;
 
 		CustomInfoWindowAdapter() {
-			mWindow = getLayoutInflater().inflate(R.layout.custom_info_window,
-					null);
-			mContents = getLayoutInflater().inflate(
-					R.layout.custom_info_contents, null);
-			mOptions = (RadioGroup) findViewById(R.id.custom_info_window_options);
+		//	mWindow = getLayoutInflater().inflate(R.layout.custom_info_window,
+			//		null);
+		//	mContents = getLayoutInflater().inflate(
+			//		R.layout.custom_info_contents, null);
+		//	mOptions = (RadioGroup) findViewById(R.id.custom_info_window_options);
 		}
 
 		@Override
 		public View getInfoWindow(Marker marker) {
-			if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
+			/*if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
 				// This means that getInfoContents will be called.
 				return null;
 			}
-			render(marker, mWindow);
-			return mWindow;
+			*/
+		//	render(marker, mWindow);
+			//return mWindow;
+		return null;
 		}
 
 		@Override
 		public View getInfoContents(Marker marker) {
-			if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
+		/*	if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
 				// This means that the default info contents will be used.
 				return null;
 			}
-			render(marker, mContents);
-			return mContents;
+*/			
+	//		render(marker, mContents);
+		//	return mContents;
+			return null;
 		}
 
 		private void render(Marker marker, View view) {
@@ -227,9 +231,9 @@ public class ShowInMap extends FragmentActivity implements
 
 	private final List<Marker> mMarkerRainbow = new ArrayList<Marker>();
 
-	private TextView mTopText;
-	private SeekBar mRotationBar;
-	private CheckBox mFlatBox;
+	//private TextView mTopText;
+	//private SeekBar mRotationBar;
+	//private CheckBox mFlatBox;
 	private ArrayList<String> list;
 	private ArrayList<String> usernames;
 	private final Random mRandom = new Random();
@@ -260,39 +264,14 @@ public class ShowInMap extends FragmentActivity implements
 		positions = new LatLng[list.size() / 3];
 		marker = new Marker[list.size() / 3];
 		extractlist();
-		/*
-		 * int i=0,j=0;
-		 * 
-		 * while(i<list.size()){
-		 * //System.out.println("*****************************"+list.get(i));
-		 * usernames.add(list.get(i));
-		 * 
-		 * positions[j] = new LatLng( Double.parseDouble(list.get(i+1)) ,
-		 * Double.parseDouble(list.get(i+2)));
-		 * System.out.println("*****************************");
-		 * System.out.println(Double.parseDouble(list.get(i+1)));
-		 * System.out.println("*****************************");
-		 * System.out.println(Double.parseDouble(list.get(i+2)));
-		 * //Double.parseDouble(list.get(i+2))
-		 * System.out.println("-----------------------------------");
-		 * 
-		 * i=i+3; j++;
-		 * 
-		 * 
-		 * }
-		 */
-		// for(int k=0;k<positions.length;k++){
-		// System.out.println("*****************************"+username.get(k));
+	
+	//	mTopText = (TextView) findViewById(R.id.top_text);
 
-		// }
+	//	mRotationBar = (SeekBar) findViewById(R.id.rotationSeekBar);
+		//mRotationBar.setMax(360);
+	//	mRotationBar.setOnSeekBarChangeListener(this);
 
-		mTopText = (TextView) findViewById(R.id.top_text);
-
-		mRotationBar = (SeekBar) findViewById(R.id.rotationSeekBar);
-		mRotationBar.setMax(360);
-		mRotationBar.setOnSeekBarChangeListener(this);
-
-		mFlatBox = (CheckBox) findViewById(R.id.flat);
+	//	mFlatBox = (CheckBox) findViewById(R.id.flat);
 
 		setUpMapIfNeeded();
 	}
@@ -428,13 +407,18 @@ public class ShowInMap extends FragmentActivity implements
 			// username.add(list.get(i));
 			// positions[j] = new LatLng( Double.parseDouble(list.get(i+1)) ,
 			// Double.parseDouble(list.get(i+2)));
-			marker[j] = mMap.addMarker(new MarkerOptions()
+	
+		 
+		 marker[j] = mMap.addMarker(new MarkerOptions()
 					.position(positions[j])
 					.title(list.get(i))
 					.snippet(":D :D")
 					.icon(BitmapDescriptorFactory
 							.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
+			
+			
+			//marker[j].showInfoWindow();
 			/*
 			 * marker[1]= mMap.addMarker(new MarkerOptions()
 			 * .position(positions[1]) .title(list.get(3)) .snippet(":D :D")
@@ -446,35 +430,45 @@ public class ShowInMap extends FragmentActivity implements
 			j++;
 
 		}
-
+		marker[0].showInfoWindow();
+		marker[1].showInfoWindow();
+		marker[2].showInfoWindow();
 		/*
-		 * mBrisbane = mMap.addMarker(new MarkerOptions() .position(BRISBANE)
-		 * .title("Brisbane") .snippet("Population: 2,074,200")
-		 * .icon(BitmapDescriptorFactory
-		 * .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-		 * 
-		 * // Uses a custom icon with the info window popping out of the center
-		 * of the icon. mSydney = mMap.addMarker(new MarkerOptions()
-		 * .position(SYDNEY) .title("Sydney") .snippet("Population: 4,627,300")
-		 * .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow))
-		 * .infoWindowAnchor(0.5f, 0.5f));
-		 * 
-		 * // Creates a draggable marker. Long press to drag. mMelbourne =
-		 * mMap.addMarker(new MarkerOptions() .position(MELBOURNE)
-		 * .title("Melbourne") .snippet("Population: 4,137,400")
-		 * .draggable(true));
-		 * 
-		 * // A few more markers for good measure. mPerth = mMap.addMarker(new
-		 * MarkerOptions() .position(PERTH) .title("Perth")
-		 * .snippet("Population: 1,738,800")); mAdelaide = mMap.addMarker(new
-		 * MarkerOptions() .position(ADELAIDE) .title("Adelaide")
-		 * .snippet("Population: 1,213,000"));
-		 */
+		
+		for(int k=0;k<j;k++){
+			marker[j].showInfoWindow();
+		}
+		*/
+		
+/*
+		
+		  mBrisbane = mMap.addMarker(new MarkerOptions() .position(BRISBANE)
+		  .title("Brisbane") .snippet("Population: 2,074,200")
+		  .icon(BitmapDescriptorFactory
+		  .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+		  
+		  // Uses a custom icon with the info window popping out of the center of the icon.
+		  mSydney = mMap.addMarker(new MarkerOptions()
+		  .position(SYDNEY) .title("Sydney") .snippet("Population: 4,627,300")
+		  .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow))
+		  .infoWindowAnchor(0.5f, 0.5f));
+		 
+		  // Creates a draggable marker. Long press to drag. mMelbourne =
+		  mMap.addMarker(new MarkerOptions() .position(MELBOURNE)
+		  .title("Melbourne") .snippet("Population: 4,137,400")
+		  .draggable(true));
+		  
+		  // A few more markers for good measure. 
+		  mPerth = mMap.addMarker(new MarkerOptions() .position(PERTH) .title("Perth")
+		  .snippet("Population: 1,738,800")); mAdelaide = mMap.addMarker(new
+		  MarkerOptions() .position(ADELAIDE) .title("Adelaide")
+		  .snippet("Population: 1,213,000"));
+		 
 		// Creates a marker rainbow demonstrating how to create default marker
 		// icons of different
-		// hues (colors).
-		float rotation = mRotationBar.getProgress();
-		boolean flat = mFlatBox.isChecked();
+		// hues (colors).*/
+	//	float rotation = mRotationBar.getProgress();
+	//	boolean flat = mFlatBox.isChecked();
 		/*
 		 * int numMarkersInRainbow = 12; for (int i = 0; i <
 		 * numMarkersInRainbow; i++) { mMarkerRainbow.add(mMap.addMarker(new
@@ -543,10 +537,10 @@ public class ShowInMap extends FragmentActivity implements
 		if (!checkReady()) {
 			return;
 		}
-		boolean flat = mFlatBox.isChecked();
-		for (Marker marker : mMarkerRainbow) {
-			marker.setFlat(flat);
-		}
+	//	boolean flat = mFlatBox.isChecked();
+		//for (Marker marker : mMarkerRainbow) {
+			//marker.setFlat(flat);
+	//	}
 	}
 
 	@Override
@@ -555,10 +549,10 @@ public class ShowInMap extends FragmentActivity implements
 		if (!checkReady()) {
 			return;
 		}
-		float rotation = seekBar.getProgress();
-		for (Marker marker : mMarkerRainbow) {
-			marker.setRotation(rotation);
-		}
+		//float rotation = seekBar.getProgress();
+		//for (Marker marker : mMarkerRainbow) {
+			//marker.setRotation(rotation);
+	//	}
 	}
 
 	@Override
@@ -623,18 +617,18 @@ public class ShowInMap extends FragmentActivity implements
 
 	@Override
 	public void onMarkerDragStart(Marker marker) {
-		mTopText.setText("onMarkerDragStart");
+	//	mTopText.setText("onMarkerDragStart");
 	}
 
 	@Override
 	public void onMarkerDragEnd(Marker marker) {
-		mTopText.setText("onMarkerDragEnd");
+	//	mTopText.setText("onMarkerDragEnd");
 	}
 
 	@Override
 	public void onMarkerDrag(Marker marker) {
-		mTopText.setText("onMarkerDrag.  Current Position: "
-				+ marker.getPosition());
+	//	mTopText.setText("onMarkerDrag.  Current Position: "
+	//			+ marker.getPosition());
 	}
 
 	/*
@@ -823,8 +817,7 @@ public class ShowInMap extends FragmentActivity implements
 			list.add(lat);
 			String lon = m.get("longitude");
 			list.add(lon);
-			System.out.println("*****" + username + "*****" + "*******" + lat
-					+ "*************" + lon);
+			
 
 		}
 		// Intent i = new Intent(ShowInMap.this,ShowInMap.class);
