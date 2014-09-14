@@ -133,22 +133,7 @@ public class Login extends Activity implements OnClickListener{
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
                 	Log.d("Login Successful!", json.toString());
-                	/*
-                	SharedPreferences sp = PreferenceManager
-							.getDefaultSharedPreferences(Login.this);
-					Editor edit = sp.edit();
-					edit.putString("username", username);
-					edit.commit();
                 	
-                	SharedPreferences pref = getApplicationContext().getSharedPreferences("P1", 0); 
-
-                	Editor editor = pref.edit();
-                	
-					//SharedPreferences.Editor editor = getSharedPreferences("P1", MODE_PRIVATE).edit();
-					 editor.putString("username",username);
-					// editor.putInt("idName", 12);
-					 editor.commit();
-                	*/
                 	
                 	
                 	SharedPreferences example = getSharedPreferences("P1", 0);
