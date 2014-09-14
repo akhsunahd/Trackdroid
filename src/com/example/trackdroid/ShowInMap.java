@@ -239,14 +239,14 @@ public class ShowInMap extends FragmentActivity implements
 	private final Random mRandom = new Random();
 	private LatLng[] positions;
 	private Marker[] marker;
-
+    private String groupname; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_in_map);
 		SharedPreferences example = getSharedPreferences("P1", 0);
 		username = example.getString("username", "defValue");
-		System.out.println(username);
+	
 		list = new ArrayList<String>();
 		usernames = new ArrayList<String>();
 		// markers=new Marker[];
@@ -254,10 +254,10 @@ public class ShowInMap extends FragmentActivity implements
 				.getSerializableExtra("arraylist");
 		
 		
+		groupname=  getIntent().getStringExtra("groupname");
 		
 		
-		
-		
+		System.out.println();
 		
 		
 		
@@ -425,14 +425,14 @@ public class ShowInMap extends FragmentActivity implements
 			 * .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow))
 			 * .infoWindowAnchor(0.5f, 0.5f));
 			 */
-
+		 marker[j].showInfoWindow();
 			i = i + 3;
 			j++;
 
 		}
-		marker[0].showInfoWindow();
-		marker[1].showInfoWindow();
-		marker[2].showInfoWindow();
+		//marker[0].showInfoWindow();
+		//marker[1].showInfoWindow();
+		//marker[2].showInfoWindow();
 		/*
 		
 		for(int k=0;k<j;k++){

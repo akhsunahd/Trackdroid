@@ -145,7 +145,7 @@ public class Login extends Activity implements OnClickListener{
                 	
                 	
                 	//Intent i = new Intent(Login.this, SendLocationDataToMap.class);
-                	Intent i = new Intent(Login.this, Current_Group_Window.class);
+                	Intent i = new Intent(Login.this, ShowAllGroups.class);
                 	finish();
     				startActivity(i);
                 	return json.getString(TAG_MESSAGE);
