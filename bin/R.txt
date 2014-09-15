@@ -442,11 +442,11 @@ int id textView2 0x7f08005b
 int id textView3 0x7f080065
 int id textView4 0x7f080066
 int id title 0x7f08003d
-int id toggleButton1 0x7f080050
 int id top_action_bar 0x7f080032
 int id up 0x7f080033
 int id useLogo 0x7f080016
 int id username 0x7f08005d
+int id visibility 0x7f080050
 int id withText 0x7f08001f
 int id wrap_content 0x7f08000d
 int integer abc_max_action_buttons 0x7f090001

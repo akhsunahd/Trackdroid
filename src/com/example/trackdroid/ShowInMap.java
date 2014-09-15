@@ -17,6 +17,7 @@
 package com.example.trackdroid;
 
 
+import com.example.trackdroid.Current_Group_Window.LoadComments;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -110,7 +111,7 @@ public class ShowInMap extends FragmentActivity implements
 	private String username = "";
 	private static final String LOCATION_URL = "http://10.0.3.2/trackdroid/location.php";
 	JSONParser jsonParser = new JSONParser();
-
+	  private static final String UPDATE = "http://10.0.3.2/trackdroid/location.php";
 	private static final LocationRequest REQUEST = LocationRequest.create()
 			.setInterval(5000) // 5 seconds
 			.setFastestInterval(16) // 16ms = 60fps
@@ -128,7 +129,7 @@ public class ShowInMap extends FragmentActivity implements
 	private ArrayList<HashMap<String, String>> mLocationsList;
 	// private ArrayList<String> list;
 
-	private static final String READ_LOCATIONS_URL1 = "http://10.0.3.2/trackdroid/getlocationdata.php";
+	private static final String READ_LOCATIONS_URL = "http://10.0.3.2/trackdroid/visiblemembers.php";
 
 	/** Demonstrates customizing the info window and/or its contents. */
 	class CustomInfoWindowAdapter implements InfoWindowAdapter {
@@ -255,7 +256,7 @@ public class ShowInMap extends FragmentActivity implements
 		
 		
 		groupname=  getIntent().getStringExtra("groupname");
-		
+		   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"+groupname+"^^^^^^^^^^^^^^^^^^^^^^^^^^"+username);
 		
 		System.out.println();
 		
@@ -287,13 +288,12 @@ public class ShowInMap extends FragmentActivity implements
 
 			positions[j] = new LatLng(Double.parseDouble(list.get(i + 1)),
 					Double.parseDouble(list.get(i + 2)));
-			System.out.println("*****************************");
+			
 			System.out.println(Double.parseDouble(list.get(i + 1)));
-			System.out.println("*****************************");
+			
 			System.out.println(Double.parseDouble(list.get(i + 2)));
 			// Double.parseDouble(list.get(i+2))
-			System.out.println("-----------------------------------");
-
+			
 			i = i + 3;
 			j++;
 
@@ -523,14 +523,89 @@ public class ShowInMap extends FragmentActivity implements
 	//extractlist();
 		
 		
-		for(int i=0;i<list.size();i++)
-		{
-			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+list.get(i));
-		}
 		extractlist();
 		//setUpMapIfNeeded();
 		addMarkersToMap();
 	}
+	
+	
+	
+	
+	 
+    class LocationUpdate extends AsyncTask<String, String, String> {
+
+		 /**
+        * Before starting background thread Show Progress Dialog
+        * */
+		boolean failure = false;
+
+       @Override
+     protected void onPreExecute() {
+           super.onPreExecute();
+          // pDialog = new ProgressDialog(Current_Group_Window.this);
+          // pDialog.setMessage("Loading Map...");
+          // pDialog.setIndeterminate(false);
+       //    pDialog.setCancelable(true);
+         //  pDialog.show();
+       }
+      
+
+		
+		protected String doInBackground(String... args) {
+			// TODO Auto-generated method stub
+			 // Check for success tag
+           int success;
+        //   String username = user.getText().toString();
+          // String password = pass.getText().toString();
+           try {
+               // Building Parameters
+               List<NameValuePair> params = new ArrayList<NameValuePair>();
+               params.add(new BasicNameValuePair("username", username));
+               params.add(new BasicNameValuePair("latitude", latitude));
+               params.add(new BasicNameValuePair("longitude", longitude));
+
+               Log.d("request!", "starting");
+
+               //Posting user data to script
+               JSONObject json = jsonParser.makeHttpRequest(
+                      UPDATE, "POST", params);
+
+               // full json response
+               Log.d("Login attempt", json.toString());
+
+               // json success element
+               success = json.getInt(TAG_SUCCESS);
+               if (success == 1) {
+               	Log.d("User Created!", json.toString());
+              // 	finish();
+               	return json.getString(TAG_MESSAGE);
+               }else{
+               	Log.d("Login Failure!", json.getString(TAG_MESSAGE));
+               	return json.getString(TAG_MESSAGE);
+
+               }
+           } catch (JSONException e) {
+               e.printStackTrace();
+           }
+
+           return null;
+
+		}
+		/**
+        * After completing background task Dismiss the progress dialog
+        * */
+       protected void onPostExecute(String file_url) {
+           // dismiss the dialog once product deleted
+          
+    	   new LoadComments().execute();
+    	   pDialog.dismiss();
+           //if (file_url != null){
+           //	Toast.makeText(Register.this, file_url, Toast.LENGTH_LONG).show();
+          // }
+
+       }
+    }
+      
 
 	/** Called when the Reset button is clicked. */
 	public void onToggleFlat(View view) {
@@ -640,134 +715,86 @@ public class ShowInMap extends FragmentActivity implements
 	 * newly added
 	 */
 
-	class LocationUpdate extends AsyncTask<String, String, String> {
+	  public void updateJSONdata() {
 
-		/**
-		 * Before starting background thread Show Progress Dialog
-		 * */
-		boolean failure = false;
+	        // Instantiate the arraylist to contain all the JSON data.
+	    	// we are going to use a bunch of key-value pairs, referring
+	    	// to the json element name, and the content, for example,
+	    	// message it the tag, and "I'm awesome" as the content..
+	    	
+	        mLocationsList = new ArrayList<HashMap<String, String>>();
+	        list= new ArrayList<String>();
+	        // Bro, it's time to power up the J parser 
+	        JSONParser jParser = new JSONParser();
+	        // Feed the beast our comments url, and it spits us
+	        //back a JSON object.  Boo-yeah Jerome.
+	       // JSONObject json = jParser.getJSONFromUrl(READ_LOCATIONS_URL1);
 
-		@Override
-		/*
-		 * protected void onPreExecute() { super.onPreExecute(); pDialog = new
-		 * ProgressDialog(Register.this);
-		 * pDialog.setMessage("Creating User...");
-		 * pDialog.setIndeterminate(false); pDialog.setCancelable(true);
-		 * pDialog.show(); }
-		 */
-		protected String doInBackground(String... args) {
-			// TODO Auto-generated method stub
-			// Check for success tag
-			int success;
-			// String username = user.getText().toString();
-			// String password = pass.getText().toString();
-			try {
-				// Building Parameters
-				List<NameValuePair> params = new ArrayList<NameValuePair>();
-				params.add(new BasicNameValuePair("username", username));
-				params.add(new BasicNameValuePair("latitude", latitude));
-				params.add(new BasicNameValuePair("longitude", longitude));
+	        //when parsing JSON stuff, we should probably
+	        //try to catch any exceptions:
+	        try {
+	            
+	        	List<NameValuePair> params = new ArrayList<NameValuePair>();
+				params.add(new BasicNameValuePair("groupname", groupname));
 
-				Log.d("request!", "starting");
+				JSONObject json = jsonParser.makeHttpRequest(READ_LOCATIONS_URL , "POST",
+						params);
+	      
+				Log.d("Login attempt", json.toString());
+				// when parsing JSON stuff, we should probably
+				// try to catch any exceptions:
+	              
+				int su = json.getInt(TAG_SUCCESS);
+				if (su == 1) {
 
-				// Posting user data to script
-				JSONObject json = jsonParser.makeHttpRequest(LOCATION_URL,
-						"POST", params);
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	//I know I said we would check if "Posts were Avail." (success==1)
+	        	//before we tried to read the individual posts, but I lied...
+	        	//mLocationswill tell us how many "posts" or comments are
+	        	//available
+	            mLocations= json.getJSONArray(TAG_POSTS);
 
-				// full json response
-				Log.d("Location updated", json.toString());
+	            // looping through all posts according to the json object returned
+	            for (int i = 0; i < mLocations.length(); i++) {
+	                JSONObject c = mLocations.getJSONObject(i);
 
-				// json success element
-				success = json.getInt(TAG_SUCCESS);
-				if (success == 1) {
-					Log.d("User Created!", json.toString());
-					// finish();
-					return json.getString(TAG_MESSAGE);
-				} else {
-					Log.d("Login Failure!", json.getString(TAG_MESSAGE));
-					return json.getString(TAG_MESSAGE);
+	                //gets the content of each tag
+	                String username = c.getString("username");
+	                String latitude= c.getString("latitude");
+	                String longitude= c.getString("longitude");
+	                
+	               // System.out.println("-----------------"+username);
+	               // System.out.println("-----------------"+latitude);
+	             //   System.out.println("-----------------"+longitude);
+	                // creating new HashMap
+	                HashMap<String, String> map = new HashMap<String, String>();
+	              
+	                map.put("username", username);
+	                map.put("latitude", latitude);
+	                map.put("longitude", longitude);
+	             
+	                // adding HashList to ArrayList
+	                mLocationsList.add(map);
+	            }
+	                //annndddd, our JSON data is up to date same with our array list
+	            }
 
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-			return null;
-
-		}
-
-		protected void onPostExecute(String file_url) {
-			// dismiss the dialog once product deleted
-
-			new GetData().execute();
-			pDialog.dismiss();
-			// if (file_url != null){
-			// Toast.makeText(Register.this, file_url,
-			// Toast.LENGTH_LONG).show();
-			// }
-
-		}
-	}
-
-	public void updateJSONdata() {
-
-		// Instantiate the arraylist to contain all the JSON data.
-		// we are going to use a bunch of key-value pairs, referring
-		// to the json element name, and the content, for example,
-		// message it the tag, and "I'm awesome" as the content..
-
-		mLocationsList = new ArrayList<HashMap<String, String>>();
-		list = new ArrayList<String>();
-		// Bro, it's time to power up the J parser
-		JSONParser jParser = new JSONParser();
-		// Feed the beast our comments url, and it spits us
-		// back a JSON object. Boo-yeah Jerome.
-		JSONObject json = jParser.getJSONFromUrl(READ_LOCATIONS_URL1);
-
-		// when parsing JSON stuff, we should probably
-		// try to catch any exceptions:
-		try {
-
-			// I know I said we would check if "Posts were Avail."
-			// (success==1)
-			// before we tried to read the individual posts, but I lied...
-			// mLocationswill tell us how many "posts" or comments are
-			// available
-			mLocations = json.getJSONArray(TAG_POSTS);
-
-			// looping through all posts according to the json object
-			// returned
-			for (int i = 0; i < mLocations.length(); i++) {
-				JSONObject c = mLocations.getJSONObject(i);
-
-				// gets the content of each tag
-				String username = c.getString("username");
-				String latitude = c.getString("latitude");
-				String longitude = c.getString("longitude");
-
-				// System.out.println("-----------------"+username);
-				// System.out.println("-----------------"+latitude);
-				// System.out.println("-----------------"+longitude);
-				// creating new HashMap
-				HashMap<String, String> map = new HashMap<String, String>();
-
-				map.put("username", username);
-				map.put("latitude", latitude);
-				map.put("longitude", longitude);
-
-				// adding HashList to ArrayList
-				mLocationsList.add(map);
-
-				// annndddd, our JSON data is up to date same with our array
-				// list
-			}
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public class GetData extends AsyncTask<Void, Void, Boolean> {
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	
+	public class LoadComments extends AsyncTask<Void, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
@@ -776,7 +803,7 @@ public class ShowInMap extends FragmentActivity implements
 			pDialog.setMessage("Loading Map...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
-			pDialog.show();
+		//	pDialog.show();
 		}
 
 		@Override
@@ -792,9 +819,10 @@ public class ShowInMap extends FragmentActivity implements
 			super.onPostExecute(result);
 			loadData();
 			extractlist();
-		    addMarkersToMap();
+		  //  addMarkersToMap();
+			setUpMap();
 			pDialog.dismiss();
-
+            
 			// we will develop this method in version 2
 			// updateList();
 		}
