@@ -243,6 +243,7 @@ public class ShowInMap extends FragmentActivity implements
     private String groupname; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_in_map);
 		SharedPreferences example = getSharedPreferences("P1", 0);
@@ -256,7 +257,7 @@ public class ShowInMap extends FragmentActivity implements
 		
 		
 		groupname=  getIntent().getStringExtra("groupname");
-		   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"+groupname+"^^^^^^^^^^^^^^^^^^^^^^^^^^"+username);
+		 
 		
 		System.out.println();
 		
@@ -323,6 +324,7 @@ public class ShowInMap extends FragmentActivity implements
 			// Try to obtain the map from the SupportMapFragment.
 			mMap = ((SupportMapFragment) getSupportFragmentManager()
 					.findFragmentById(R.id.map)).getMap();
+		
 			// Check if we were successful in obtaining the map.
 			if (mMap != null) {
 				setUpMap();
@@ -332,7 +334,8 @@ public class ShowInMap extends FragmentActivity implements
 
 	private void setUpMap() {
 		// Hide the zoom controls as the button panel will cover it.
-		mMap.getUiSettings().setZoomControlsEnabled(false);
+		mMap.getUiSettings().setZoomControlsEnabled(true);
+		
 
 		// Add lots of markers to the map.
 		addMarkersToMap();

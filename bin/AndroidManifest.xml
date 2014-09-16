@@ -87,6 +87,14 @@
             android:name="com.example.trackdroid.ShowAllGroups"
             android:label="@string/app_name"  >
         </activity>
+        <activity
+            android:name="com.example.trackdroid.SearchAndAddUsers"
+            android:label="@string/app_name"  >
+        </activity>
+        <activity
+            android:name="com.example.trackdroid.CreateGroup"
+            android:label="@string/app_name"  >
+        </activity>
         
       
        

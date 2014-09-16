@@ -115,7 +115,7 @@ OnMyLocationButtonClickListener {
         
         
         
-        Members=(Button) findViewById(R.id.button1);
+        Members=(Button) findViewById(R.id.search);
         
         
         Members.setOnClickListener(new View.OnClickListener() {
