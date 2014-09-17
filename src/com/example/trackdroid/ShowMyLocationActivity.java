@@ -41,13 +41,13 @@ import android.widget.Toast;
  * track changes to the users location on the map, we request updates from the
  * {@link LocationClient}.
  */
-public class ViewGroup extends FragmentActivity
+public class ShowMyLocationActivity extends FragmentActivity
         implements
         ConnectionCallbacks,
         OnConnectionFailedListener,
         LocationListener,
         OnMyLocationButtonClickListener {
-
+	private ProgressDialog pDialog=null;
     private GoogleMap mMap;
    // private Button Members;
     private Button Members;
@@ -61,7 +61,9 @@ public class ViewGroup extends FragmentActivity
   //  private String id="new";
     private String username="";
     JSONParser jsonParser = new JSONParser();
-    private static final String LOGIN_URL = "http://myapptrackdroi.hostoi.com/location.php";
+   // private static final String LOGIN_URL = "http://myapptrackdroi.hostoi.com/location.php";
+    private static final String LOGIN_URL = "http://10.0.3.2/trackdroid/location.php";
+ //   http://10.0.3.2/trackdroid/
     // private 
     // These settings are the same as the settings for the map. They will in fact give you updates
     // at the maximal rates currently possible.
@@ -75,36 +77,9 @@ public class ViewGroup extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_location);
         mMessageView = (TextView) findViewById(R.id.message_text);
-        Members=(Button) findViewById(R.id.show_members);
+      //  Members=(Button) findViewById(R.id.show_members);
         temp= (TextView) findViewById(R.id.display);
-        Members.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-               
-            	SharedPreferences example = getSharedPreferences("P1", 0);
-            	username = example.getString("username", "defValue");
-
-            	// the following will print it out in console
-            //	Logger.getLogger("Name of a OutputClass".class.getName()).log(Level.INFO, userString);
-            	//System.out.println("--------------------------"+username);
-                               	
-
-            	if (mLocationClient != null && mLocationClient.isConnected()) {
-                   // String msg = "Location = " + mLocationClient.getLastLocation();
-                    latitude=""+mLocationClient.getLastLocation().getLatitude();
-                    longitude=""+mLocationClient.getLastLocation().getLongitude();
-                  
-                   
-                  //  temp.setText(latitude+" aaaaaaaa   "+longitude+"   ");
-                   new LocationUpdate().execute();
-                    
-                    
-                  Toast.makeText(getApplicationContext(),"", Toast.LENGTH_SHORT).show();
-                }
-                 //startActivity(intent); //<<< start Activity here
-               }
-           });
-        
-        
+     
         
          
     }
@@ -122,15 +97,15 @@ public class ViewGroup extends FragmentActivity
 		boolean failure = false;
 
        @Override
-      /* protected void onPreExecute() {
+       protected void onPreExecute() {
            super.onPreExecute();
-           pDialog = new ProgressDialog(Register.this);
+           pDialog = new ProgressDialog(ShowMyLocationActivity.this);
            pDialog.setMessage("Creating User...");
            pDialog.setIndeterminate(false);
            pDialog.setCancelable(true);
            pDialog.show();
        }
-       */
+       
 
 		
 		protected String doInBackground(String... args) {
@@ -142,7 +117,7 @@ public class ViewGroup extends FragmentActivity
            try {
                // Building Parameters
                List<NameValuePair> params = new ArrayList<NameValuePair>();
-               params.add(new BasicNameValuePair("id", username));
+               params.add(new BasicNameValuePair("username", username));
                params.add(new BasicNameValuePair("latitude", latitude));
                params.add(new BasicNameValuePair("longitude", longitude));
 
@@ -175,16 +150,16 @@ public class ViewGroup extends FragmentActivity
 		}
 		/**
         * After completing background task Dismiss the progress dialog
-        * *
+        * **/
        protected void onPostExecute(String file_url) {
            // dismiss the dialog once product deleted
            pDialog.dismiss();
            if (file_url != null){
-           	Toast.makeText(Register.this, file_url, Toast.LENGTH_LONG).show();
+           	Toast.makeText(ShowMyLocationActivity.this, file_url, Toast.LENGTH_LONG).show();
            }
 
        }
-       */
+       
 
 	}
     
@@ -305,7 +280,7 @@ public class ViewGroup extends FragmentActivity
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;

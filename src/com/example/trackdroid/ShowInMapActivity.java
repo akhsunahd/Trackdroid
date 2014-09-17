@@ -16,7 +16,6 @@
 
 package com.example.trackdroid;
 
-
 import com.example.trackdroid.Current_Group_Window.LoadComments;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -80,7 +79,7 @@ import org.json.JSONObject;
 /**
  * This shows how to place markers on a map.
  */
-public class ShowInMap extends FragmentActivity implements
+public class ShowInMapActivity extends FragmentActivity implements
 		OnMarkerClickListener, OnInfoWindowClickListener, OnMarkerDragListener,
 		OnSeekBarChangeListener, ConnectionCallbacks,
 		OnConnectionFailedListener, LocationListener,
@@ -91,27 +90,18 @@ public class ShowInMap extends FragmentActivity implements
 	private static final LatLng ADELAIDE = new LatLng(-34.92873, 138.59995);
 	private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
 
-	
 	private static final String TAG_POSTS = "posts";
 
 	private ProgressDialog pDialog;
-
-	// php read comments script
-	// private GoogleMap mMap;
-	// private Button Members;
-
 	private LocationClient mLocationClient;
-	
 	private String latitude;
-	
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_MESSAGE = "message";
 	private String longitude;
-	
 	private String username = "";
 	private static final String LOCATION_URL = "http://10.0.3.2/trackdroid/location.php";
 	JSONParser jsonParser = new JSONParser();
-	  private static final String UPDATE = "http://10.0.3.2/trackdroid/location.php";
+	private static final String UPDATE = "http://10.0.3.2/trackdroid/location.php";
 	private static final LocationRequest REQUEST = LocationRequest.create()
 			.setInterval(5000) // 5 seconds
 			.setFastestInterval(16) // 16ms = 60fps
@@ -133,44 +123,41 @@ public class ShowInMap extends FragmentActivity implements
 
 	/** Demonstrates customizing the info window and/or its contents. */
 	class CustomInfoWindowAdapter implements InfoWindowAdapter {
-		//private final RadioGroup mOptions;
+		// private final RadioGroup mOptions;
 		private int NumOfElements;
-		// public LatLng[] positions;
-		// These a both viewgroups containing an ImageView with id "badge" and
-		// two TextViews with id
-		// "title" and "snippet".
-		//private final View mWindow;
-	//	private final View mContents;
+
 
 		CustomInfoWindowAdapter() {
-		//	mWindow = getLayoutInflater().inflate(R.layout.custom_info_window,
-			//		null);
-		//	mContents = getLayoutInflater().inflate(
-			//		R.layout.custom_info_contents, null);
-		//	mOptions = (RadioGroup) findViewById(R.id.custom_info_window_options);
+			// mWindow =
+			// getLayoutInflater().inflate(R.layout.custom_info_window,
+			// null);
+			// mContents = getLayoutInflater().inflate(
+			// R.layout.custom_info_contents, null);
+			// mOptions = (RadioGroup)
+			// findViewById(R.id.custom_info_window_options);
 		}
 
 		@Override
 		public View getInfoWindow(Marker marker) {
-			/*if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
-				// This means that getInfoContents will be called.
-				return null;
-			}
-			*/
-		//	render(marker, mWindow);
-			//return mWindow;
-		return null;
+			/*
+			 * if (mOptions.getCheckedRadioButtonId() !=
+			 * R.id.custom_info_window) { // This means that getInfoContents
+			 * will be called. return null; }
+			 */
+			// render(marker, mWindow);
+			// return mWindow;
+			return null;
 		}
 
 		@Override
 		public View getInfoContents(Marker marker) {
-		/*	if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
-				// This means that the default info contents will be used.
-				return null;
-			}
-*/			
-	//		render(marker, mContents);
-		//	return mContents;
+			/*
+			 * if (mOptions.getCheckedRadioButtonId() !=
+			 * R.id.custom_info_contents) { // This means that the default info
+			 * contents will be used. return null; }
+			 */
+			// render(marker, mContents);
+			// return mContents;
 			return null;
 		}
 
@@ -232,48 +219,45 @@ public class ShowInMap extends FragmentActivity implements
 
 	private final List<Marker> mMarkerRainbow = new ArrayList<Marker>();
 
-	//private TextView mTopText;
-	//private SeekBar mRotationBar;
-	//private CheckBox mFlatBox;
+	// private TextView mTopText;
+	// private SeekBar mRotationBar;
+	// private CheckBox mFlatBox;
 	private ArrayList<String> list;
 	private ArrayList<String> usernames;
 	private final Random mRandom = new Random();
 	private LatLng[] positions;
 	private Marker[] marker;
-    private String groupname; 
+	private String groupname;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_in_map);
 		SharedPreferences example = getSharedPreferences("P1", 0);
 		username = example.getString("username", "defValue");
-	
+
 		list = new ArrayList<String>();
 		usernames = new ArrayList<String>();
 		// markers=new Marker[];
 		list = (ArrayList<String>) getIntent()
 				.getSerializableExtra("arraylist");
-		
-		
-		groupname=  getIntent().getStringExtra("groupname");
-		 
-		
+
+		groupname = getIntent().getStringExtra("groupname");
+
 		System.out.println();
-		
-		
-		
+
 		positions = new LatLng[list.size() / 3];
 		marker = new Marker[list.size() / 3];
 		extractlist();
-	
-	//	mTopText = (TextView) findViewById(R.id.top_text);
 
-	//	mRotationBar = (SeekBar) findViewById(R.id.rotationSeekBar);
-		//mRotationBar.setMax(360);
-	//	mRotationBar.setOnSeekBarChangeListener(this);
+		// mTopText = (TextView) findViewById(R.id.top_text);
 
-	//	mFlatBox = (CheckBox) findViewById(R.id.flat);
+		// mRotationBar = (SeekBar) findViewById(R.id.rotationSeekBar);
+		// mRotationBar.setMax(360);
+		// mRotationBar.setOnSeekBarChangeListener(this);
+
+		// mFlatBox = (CheckBox) findViewById(R.id.flat);
 
 		setUpMapIfNeeded();
 	}
@@ -289,12 +273,12 @@ public class ShowInMap extends FragmentActivity implements
 
 			positions[j] = new LatLng(Double.parseDouble(list.get(i + 1)),
 					Double.parseDouble(list.get(i + 2)));
-			
+
 			System.out.println(Double.parseDouble(list.get(i + 1)));
-			
+
 			System.out.println(Double.parseDouble(list.get(i + 2)));
 			// Double.parseDouble(list.get(i+2))
-			
+
 			i = i + 3;
 			j++;
 
@@ -324,7 +308,7 @@ public class ShowInMap extends FragmentActivity implements
 			// Try to obtain the map from the SupportMapFragment.
 			mMap = ((SupportMapFragment) getSupportFragmentManager()
 					.findFragmentById(R.id.map)).getMap();
-		
+
 			// Check if we were successful in obtaining the map.
 			if (mMap != null) {
 				setUpMap();
@@ -335,7 +319,6 @@ public class ShowInMap extends FragmentActivity implements
 	private void setUpMap() {
 		// Hide the zoom controls as the button panel will cover it.
 		mMap.getUiSettings().setZoomControlsEnabled(true);
-		
 
 		// Add lots of markers to the map.
 		addMarkersToMap();
@@ -396,82 +379,75 @@ public class ShowInMap extends FragmentActivity implements
 	}
 
 	private void addMarkersToMap() {
-		
-		
-		
-		
+
 		System.out.println("((((((((((((((((((((((((((((((((((((((((((((");
 		// Uses a colored icon.
 		int i = 0, j = 0;
 		marker = new Marker[list.size() / 3];
 		mMap.clear();
 		while (i < list.size()) {
-		 System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"+list.get(i));
+			System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"
+					+ list.get(i));
 			// username.add(list.get(i));
 			// positions[j] = new LatLng( Double.parseDouble(list.get(i+1)) ,
 			// Double.parseDouble(list.get(i+2)));
-	
-		 
-		 marker[j] = mMap.addMarker(new MarkerOptions()
+
+			marker[j] = mMap.addMarker(new MarkerOptions()
 					.position(positions[j])
 					.title(list.get(i))
 					.snippet(":D :D")
 					.icon(BitmapDescriptorFactory
 							.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-			
-			
-			//marker[j].showInfoWindow();
+			// marker[j].showInfoWindow();
 			/*
 			 * marker[1]= mMap.addMarker(new MarkerOptions()
 			 * .position(positions[1]) .title(list.get(3)) .snippet(":D :D")
 			 * .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow))
 			 * .infoWindowAnchor(0.5f, 0.5f));
 			 */
-		 marker[j].showInfoWindow();
+			marker[j].showInfoWindow();
 			i = i + 3;
 			j++;
 
 		}
-		//marker[0].showInfoWindow();
-		//marker[1].showInfoWindow();
-		//marker[2].showInfoWindow();
+		// marker[0].showInfoWindow();
+		// marker[1].showInfoWindow();
+		// marker[2].showInfoWindow();
 		/*
-		
-		for(int k=0;k<j;k++){
-			marker[j].showInfoWindow();
-		}
-		*/
-		
-/*
-		
-		  mBrisbane = mMap.addMarker(new MarkerOptions() .position(BRISBANE)
-		  .title("Brisbane") .snippet("Population: 2,074,200")
-		  .icon(BitmapDescriptorFactory
-		  .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-		  
-		  // Uses a custom icon with the info window popping out of the center of the icon.
-		  mSydney = mMap.addMarker(new MarkerOptions()
-		  .position(SYDNEY) .title("Sydney") .snippet("Population: 4,627,300")
-		  .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow))
-		  .infoWindowAnchor(0.5f, 0.5f));
-		 
-		  // Creates a draggable marker. Long press to drag. mMelbourne =
-		  mMap.addMarker(new MarkerOptions() .position(MELBOURNE)
-		  .title("Melbourne") .snippet("Population: 4,137,400")
-		  .draggable(true));
-		  
-		  // A few more markers for good measure. 
-		  mPerth = mMap.addMarker(new MarkerOptions() .position(PERTH) .title("Perth")
-		  .snippet("Population: 1,738,800")); mAdelaide = mMap.addMarker(new
-		  MarkerOptions() .position(ADELAIDE) .title("Adelaide")
-		  .snippet("Population: 1,213,000"));
-		 
-		// Creates a marker rainbow demonstrating how to create default marker
-		// icons of different
-		// hues (colors).*/
-	//	float rotation = mRotationBar.getProgress();
-	//	boolean flat = mFlatBox.isChecked();
+		 * 
+		 * for(int k=0;k<j;k++){ marker[j].showInfoWindow(); }
+		 */
+
+		/*
+		 * 
+		 * mBrisbane = mMap.addMarker(new MarkerOptions() .position(BRISBANE)
+		 * .title("Brisbane") .snippet("Population: 2,074,200")
+		 * .icon(BitmapDescriptorFactory
+		 * .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+		 * 
+		 * // Uses a custom icon with the info window popping out of the center
+		 * of the icon. mSydney = mMap.addMarker(new MarkerOptions()
+		 * .position(SYDNEY) .title("Sydney") .snippet("Population: 4,627,300")
+		 * .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow))
+		 * .infoWindowAnchor(0.5f, 0.5f));
+		 * 
+		 * // Creates a draggable marker. Long press to drag. mMelbourne =
+		 * mMap.addMarker(new MarkerOptions() .position(MELBOURNE)
+		 * .title("Melbourne") .snippet("Population: 4,137,400")
+		 * .draggable(true));
+		 * 
+		 * // A few more markers for good measure. mPerth = mMap.addMarker(new
+		 * MarkerOptions() .position(PERTH) .title("Perth")
+		 * .snippet("Population: 1,738,800")); mAdelaide = mMap.addMarker(new
+		 * MarkerOptions() .position(ADELAIDE) .title("Adelaide")
+		 * .snippet("Population: 1,213,000"));
+		 * 
+		 * // Creates a marker rainbow demonstrating how to create default
+		 * marker // icons of different // hues (colors).
+		 */
+		// float rotation = mRotationBar.getProgress();
+		// boolean flat = mFlatBox.isChecked();
 		/*
 		 * int numMarkersInRainbow = 12; for (int i = 0; i <
 		 * numMarkersInRainbow; i++) { mMarkerRainbow.add(mMap.addMarker(new
@@ -519,106 +495,100 @@ public class ShowInMap extends FragmentActivity implements
 			// temp.setText(latitude+" aaaaaaaa   "+longitude+"   ");
 			new LocationUpdate().execute();
 
-			//System.out.println("***********/////////////////*****************");
+			// System.out.println("***********/////////////////*****************");
 
 		}
 
-	//extractlist();
-		
-		
+		// extractlist();
+
 		extractlist();
-		//setUpMapIfNeeded();
+		// setUpMapIfNeeded();
 		addMarkersToMap();
 	}
-	
-	
-	
-	
-	 
-    class LocationUpdate extends AsyncTask<String, String, String> {
 
-		 /**
-        * Before starting background thread Show Progress Dialog
-        * */
+	class LocationUpdate extends AsyncTask<String, String, String> {
+
+		/**
+		 * Before starting background thread Show Progress Dialog
+		 * */
 		boolean failure = false;
 
-       @Override
-     protected void onPreExecute() {
-           super.onPreExecute();
-          // pDialog = new ProgressDialog(Current_Group_Window.this);
-          // pDialog.setMessage("Loading Map...");
-          // pDialog.setIndeterminate(false);
-       //    pDialog.setCancelable(true);
-         //  pDialog.show();
-       }
-      
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			// pDialog = new ProgressDialog(Current_Group_Window.this);
+			// pDialog.setMessage("Loading Map...");
+			// pDialog.setIndeterminate(false);
+			// pDialog.setCancelable(true);
+			// pDialog.show();
+		}
 
-		
 		protected String doInBackground(String... args) {
 			// TODO Auto-generated method stub
-			 // Check for success tag
-           int success;
-        //   String username = user.getText().toString();
-          // String password = pass.getText().toString();
-           try {
-               // Building Parameters
-               List<NameValuePair> params = new ArrayList<NameValuePair>();
-               params.add(new BasicNameValuePair("username", username));
-               params.add(new BasicNameValuePair("latitude", latitude));
-               params.add(new BasicNameValuePair("longitude", longitude));
+			// Check for success tag
+			int success;
+			// String username = user.getText().toString();
+			// String password = pass.getText().toString();
+			try {
+				// Building Parameters
+				List<NameValuePair> params = new ArrayList<NameValuePair>();
+				params.add(new BasicNameValuePair("username", username));
+				params.add(new BasicNameValuePair("latitude", latitude));
+				params.add(new BasicNameValuePair("longitude", longitude));
 
-               Log.d("request!", "starting");
+				Log.d("request!", "starting");
 
-               //Posting user data to script
-               JSONObject json = jsonParser.makeHttpRequest(
-                      UPDATE, "POST", params);
+				// Posting user data to script
+				JSONObject json = jsonParser.makeHttpRequest(UPDATE, "POST",
+						params);
 
-               // full json response
-               Log.d("Login attempt", json.toString());
+				// full json response
+				Log.d("Login attempt", json.toString());
 
-               // json success element
-               success = json.getInt(TAG_SUCCESS);
-               if (success == 1) {
-               	Log.d("User Created!", json.toString());
-              // 	finish();
-               	return json.getString(TAG_MESSAGE);
-               }else{
-               	Log.d("Login Failure!", json.getString(TAG_MESSAGE));
-               	return json.getString(TAG_MESSAGE);
+				// json success element
+				success = json.getInt(TAG_SUCCESS);
+				if (success == 1) {
+					Log.d("User Created!", json.toString());
+					// finish();
+					return json.getString(TAG_MESSAGE);
+				} else {
+					Log.d("Login Failure!", json.getString(TAG_MESSAGE));
+					return json.getString(TAG_MESSAGE);
 
-               }
-           } catch (JSONException e) {
-               e.printStackTrace();
-           }
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 
-           return null;
+			return null;
 
 		}
-		/**
-        * After completing background task Dismiss the progress dialog
-        * */
-       protected void onPostExecute(String file_url) {
-           // dismiss the dialog once product deleted
-          
-    	   new LoadComments().execute();
-    	   pDialog.dismiss();
-           //if (file_url != null){
-           //	Toast.makeText(Register.this, file_url, Toast.LENGTH_LONG).show();
-          // }
 
-       }
-    }
-      
+		/**
+		 * After completing background task Dismiss the progress dialog
+		 * */
+		protected void onPostExecute(String file_url) {
+			// dismiss the dialog once product deleted
+
+			new LoadComments().execute();
+			pDialog.dismiss();
+			// if (file_url != null){
+			// Toast.makeText(Register.this, file_url,
+			// Toast.LENGTH_LONG).show();
+			// }
+
+		}
+	}
 
 	/** Called when the Reset button is clicked. */
 	public void onToggleFlat(View view) {
 		if (!checkReady()) {
 			return;
 		}
-	//	boolean flat = mFlatBox.isChecked();
-		//for (Marker marker : mMarkerRainbow) {
-			//marker.setFlat(flat);
-	//	}
+		// boolean flat = mFlatBox.isChecked();
+		// for (Marker marker : mMarkerRainbow) {
+		// marker.setFlat(flat);
+		// }
 	}
 
 	@Override
@@ -627,10 +597,10 @@ public class ShowInMap extends FragmentActivity implements
 		if (!checkReady()) {
 			return;
 		}
-		//float rotation = seekBar.getProgress();
-		//for (Marker marker : mMarkerRainbow) {
-			//marker.setRotation(rotation);
-	//	}
+		// float rotation = seekBar.getProgress();
+		// for (Marker marker : mMarkerRainbow) {
+		// marker.setRotation(rotation);
+		// }
 	}
 
 	@Override
@@ -695,18 +665,18 @@ public class ShowInMap extends FragmentActivity implements
 
 	@Override
 	public void onMarkerDragStart(Marker marker) {
-	//	mTopText.setText("onMarkerDragStart");
+		// mTopText.setText("onMarkerDragStart");
 	}
 
 	@Override
 	public void onMarkerDragEnd(Marker marker) {
-	//	mTopText.setText("onMarkerDragEnd");
+		// mTopText.setText("onMarkerDragEnd");
 	}
 
 	@Override
 	public void onMarkerDrag(Marker marker) {
-	//	mTopText.setText("onMarkerDrag.  Current Position: "
-	//			+ marker.getPosition());
+		// mTopText.setText("onMarkerDrag.  Current Position: "
+		// + marker.getPosition());
 	}
 
 	/*
@@ -718,95 +688,87 @@ public class ShowInMap extends FragmentActivity implements
 	 * newly added
 	 */
 
-	  public void updateJSONdata() {
+	public void updateJSONdata() {
 
-	        // Instantiate the arraylist to contain all the JSON data.
-	    	// we are going to use a bunch of key-value pairs, referring
-	    	// to the json element name, and the content, for example,
-	    	// message it the tag, and "I'm awesome" as the content..
-	    	
-	        mLocationsList = new ArrayList<HashMap<String, String>>();
-	        list= new ArrayList<String>();
-	        // Bro, it's time to power up the J parser 
-	        JSONParser jParser = new JSONParser();
-	        // Feed the beast our comments url, and it spits us
-	        //back a JSON object.  Boo-yeah Jerome.
-	       // JSONObject json = jParser.getJSONFromUrl(READ_LOCATIONS_URL1);
+		// Instantiate the arraylist to contain all the JSON data.
+		// we are going to use a bunch of key-value pairs, referring
+		// to the json element name, and the content, for example,
+		// message it the tag, and "I'm awesome" as the content..
 
-	        //when parsing JSON stuff, we should probably
-	        //try to catch any exceptions:
-	        try {
-	            
-	        	List<NameValuePair> params = new ArrayList<NameValuePair>();
-				params.add(new BasicNameValuePair("groupname", groupname));
+		mLocationsList = new ArrayList<HashMap<String, String>>();
+		list = new ArrayList<String>();
+		// Bro, it's time to power up the J parser
+		JSONParser jParser = new JSONParser();
+		// Feed the beast our comments url, and it spits us
+		// back a JSON object. Boo-yeah Jerome.
+		// JSONObject json = jParser.getJSONFromUrl(READ_LOCATIONS_URL1);
 
-				JSONObject json = jsonParser.makeHttpRequest(READ_LOCATIONS_URL , "POST",
-						params);
-	      
-				Log.d("Login attempt", json.toString());
-				// when parsing JSON stuff, we should probably
-				// try to catch any exceptions:
-	              
-				int su = json.getInt(TAG_SUCCESS);
-				if (su == 1) {
+		// when parsing JSON stuff, we should probably
+		// try to catch any exceptions:
+		try {
 
-	        	
-	        	
-	        	
-	        	
-	        	
-	        	
-	        	
-	        	
-	        	
-	        	
-	        	
-	        	//I know I said we would check if "Posts were Avail." (success==1)
-	        	//before we tried to read the individual posts, but I lied...
-	        	//mLocationswill tell us how many "posts" or comments are
-	        	//available
-	            mLocations= json.getJSONArray(TAG_POSTS);
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("groupname", groupname));
 
-	            // looping through all posts according to the json object returned
-	            for (int i = 0; i < mLocations.length(); i++) {
-	                JSONObject c = mLocations.getJSONObject(i);
+			JSONObject json = jsonParser.makeHttpRequest(READ_LOCATIONS_URL,
+					"POST", params);
 
-	                //gets the content of each tag
-	                String username = c.getString("username");
-	                String latitude= c.getString("latitude");
-	                String longitude= c.getString("longitude");
-	                
-	               // System.out.println("-----------------"+username);
-	               // System.out.println("-----------------"+latitude);
-	             //   System.out.println("-----------------"+longitude);
-	                // creating new HashMap
-	                HashMap<String, String> map = new HashMap<String, String>();
-	              
-	                map.put("username", username);
-	                map.put("latitude", latitude);
-	                map.put("longitude", longitude);
-	             
-	                // adding HashList to ArrayList
-	                mLocationsList.add(map);
-	            }
-	                //annndddd, our JSON data is up to date same with our array list
-	            }
+			Log.d("Login attempt", json.toString());
+			// when parsing JSON stuff, we should probably
+			// try to catch any exceptions:
 
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	
+			int su = json.getInt(TAG_SUCCESS);
+			if (su == 1) {
+
+				// I know I said we would check if "Posts were Avail."
+				// (success==1)
+				// before we tried to read the individual posts, but I lied...
+				// mLocationswill tell us how many "posts" or comments are
+				// available
+				mLocations = json.getJSONArray(TAG_POSTS);
+
+				// looping through all posts according to the json object
+				// returned
+				for (int i = 0; i < mLocations.length(); i++) {
+					JSONObject c = mLocations.getJSONObject(i);
+
+					// gets the content of each tag
+					String username = c.getString("username");
+					String latitude = c.getString("latitude");
+					String longitude = c.getString("longitude");
+
+					// System.out.println("-----------------"+username);
+					// System.out.println("-----------------"+latitude);
+					// System.out.println("-----------------"+longitude);
+					// creating new HashMap
+					HashMap<String, String> map = new HashMap<String, String>();
+
+					map.put("username", username);
+					map.put("latitude", latitude);
+					map.put("longitude", longitude);
+
+					// adding HashList to ArrayList
+					mLocationsList.add(map);
+				}
+				// annndddd, our JSON data is up to date same with our array
+				// list
+			}
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public class LoadComments extends AsyncTask<Void, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = new ProgressDialog(ShowInMap.this);
+			pDialog = new ProgressDialog(ShowInMapActivity.this);
 			pDialog.setMessage("Loading Map...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
-		//	pDialog.show();
+			// pDialog.show();
 		}
 
 		@Override
@@ -822,10 +784,10 @@ public class ShowInMap extends FragmentActivity implements
 			super.onPostExecute(result);
 			loadData();
 			extractlist();
-		  //  addMarkersToMap();
+			// addMarkersToMap();
 			setUpMap();
 			pDialog.dismiss();
-            
+
 			// we will develop this method in version 2
 			// updateList();
 		}
@@ -848,7 +810,6 @@ public class ShowInMap extends FragmentActivity implements
 			list.add(lat);
 			String lon = m.get("longitude");
 			list.add(lon);
-			
 
 		}
 		// Intent i = new Intent(ShowInMap.this,ShowInMap.class);
