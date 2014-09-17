@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.example.trackdroid;
-
-import com.example.trackdroid.Current_Group_Window.LoadComments;
+package com.trackdroid.activities;
+import com.example.trackdroid.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -36,6 +35,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.trackdroid.activities.CurrentGroupActivity.LoadComments;
+import com.trackdroid.connectivitymanager.*;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;

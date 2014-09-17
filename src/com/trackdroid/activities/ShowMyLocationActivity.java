@@ -1,5 +1,5 @@
-package com.example.trackdroid;
-
+package com.trackdroid.activities;
+import com.example.trackdroid.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.trackdroid.connectivitymanager.*;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;

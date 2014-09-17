@@ -35,7 +35,7 @@
             android:value="@integer/google_play_services_version" />
    
       <activity
-         android:name="com.example.trackdroid.Login"
+         android:name="com.trackdroid.authenticationhandler.Login"
          android:label="@string/app_name" >
          <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -57,46 +57,46 @@
      -->
     
        <activity
-            android:name="com.example.trackdroid.ShowMyLocationActivity"
+            android:name="com.trackdroid.activities.ShowMyLocationActivity"
             android:label="@string/app_name"  >
         </activity>
         <activity
-            android:name="com.example.trackdroid.MainActivity"
+            android:name="com.trackdroid.activities.MainActivity"
             android:label="@string/app_name"  >
         </activity>
             <activity
-            android:name="com.example.trackdroid.Register"
+            android:name="com.trackdroid.activities.Register"
             android:label="@string/app_name"  >
         </activity>
           
          <activity
-            android:name="com.example.trackdroid.ShowInMapActivity"
+            android:name="com.trackdroid.activities.ShowInMapActivity"
             android:label="@string/app_name"  >
         </activity>
          <activity
-            android:name="com.example.trackdroid.Current_Group_Window"
+            android:name="com.trackdroid.activities.CurrentGroupActivity"
             android:label="@string/app_name"  >
         </activity>
         
          <activity
-            android:name="com.example.trackdroid.ShowAllMembersInaGroupActivity"
+            android:name="com.trackdroid.activities.ShowAllMembersInaGroupActivity"
             android:label="@string/app_name"  >
         </activity>
       
           <activity
-            android:name="com.example.trackdroid.ShowAllGroupsActivity"
+            android:name="com.trackdroid.activities.ShowAllGroupsActivity"
             android:label="@string/app_name"  >
         </activity>
         <activity
-            android:name="com.example.trackdroid.SearchAndAddUsers"
+            android:name="com.trackdroid.activities.SearchAndAddUsersActivity"
             android:label="@string/app_name"  >
         </activity>
         <activity
-            android:name="com.example.trackdroid.CreateGroupActivity"
+            android:name="com.trackdroid.activities.CreateGroupActivity"
             android:label="@string/app_name"  >
         </activity>
         <activity
-            android:name="com.example.trackdroid.RequestsHandler"
+            android:name="com.trackdroid.activities.RequestsHandler"
             android:label="@string/app_name"  >
         </activity>
         
